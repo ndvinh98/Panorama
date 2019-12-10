@@ -16,8 +16,8 @@
 		
 		|_ main.py
 		|_ utils.py
-        |_ features.py
-        |_ stitch.py
+		|_ features.py
+		|_ stitch.py
 		|	
 		|_ data - |
 		|			|_ myhouse
@@ -28,7 +28,7 @@
 		|			|			|- H2.jpg
 		|			|			|- H3.jpg
 		|			|.....etc.....
-        |_result -|
-        |          |- myhouse.jpg
-        |          |- BK.jpg
-        |		   |.....etc.....
+		|_result -|
+		|          		|- myhouse.jpg
+		|          		|- BK.jpg
+		|		   	|.....etc.....
