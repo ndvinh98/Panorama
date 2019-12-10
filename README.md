@@ -1,4 +1,5 @@
 # Panorama
+<li>This repository contains an implementation of multiple image stitching
 
 ### Requirement
 <li>python3 (or higher)
@@ -11,3 +12,23 @@
 <li>numpy
 <li>matplotlib
 
+##### Project Structure : 
+		
+		|_ main.py
+		|_ utils.py
+        |_ features.py
+        |_ stitch.py
+		|	
+		|_ data - |
+		|			|_ myhouse
+		|			|			|- 001.jpg
+		|			|			|- 002.jpg
+		|			|_ BK
+		|			|			|- H1.jpg
+		|			|			|- H2.jpg
+		|			|			|- H3.jpg
+		|			|.....etc.....
+        |_result -|
+        |          |- myhouse.jpg
+        |          |- BK.jpg
+        |		   |.....etc.....
