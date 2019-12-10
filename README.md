@@ -1,5 +1,6 @@
 # Panorama
 <li>This repository contains an implementation of multiple image stitching
+<li>Images must be supplied in left-to-right order.
 
 ### Requirement
 <li>python3 (or higher)
@@ -33,7 +34,9 @@
 		|          		|- BK.jpg
 		|		   	|.....etc.....
 
-### To run : 
+### To run :
+#### IMPORTANT!!! Images must be supplied in left-to-right order.
+
 <li>if you want to resize images in input folder:
 
     `python main.py -i <input dir> -o <output dir -r 1> `
