@@ -53,7 +53,7 @@ def warpTwoImages(src_img, dst_img,smoothing_window = 400):
 	#generate Homography matrix
     H=features.generateHomography(src_img,dst_img)
 
-	#get height and weigh of two images
+	#get height and width of two images
     h1,w1 = src_img.shape[:2]
     h2,w2 = dst_img.shape[:2]
 
