@@ -87,7 +87,7 @@ def warpTwoImages(src_img, dst_img,smoothing_window = 400):
     Ht = np.array([[1,0,t[0]],[0,1,t[1]],[0,0,1]]) 
     src_img_wrapped = cv2.warpPerspective(src_img, Ht.dot(H), (width_pano,height_pano))
 
-    #generating size of src_img_wrapped which has the same size of dst_img
+    #generating size of src_img_wrapped which has the same size as dst_img
     dst_img_rz=np.zeros((height_pano,width_pano,3))
     if side=='left':
         dst_img_rz[t[1]:h1+t[1]-abs(h2-h1),t[0]:w2+t[0]] = dst_img
