@@ -11,7 +11,7 @@ def loadImages(path,reize):
     list_image = []
     for i,j in enumerate(image_path):
         image = cv2.imread(j)
-        if reize:
+        if reize==1:
             image=cv2.resize(image,(int(image.shape[1]/2),int(image.shape[0]/2)))
         list_image.append(image)
     return (list_image)
