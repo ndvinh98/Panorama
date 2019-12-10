@@ -49,11 +49,18 @@
 ## Outputs !! 
 
 <center>
+<caption>Stitching using Myhouse example</caption>
 <img src="result/myhouse.jpg" ><br>
 <br><br>
+<caption>Stitching using BK example</caption>
 <img src="result/BK.jpg" ><br>
 <br><br>
+<caption>Stitching using city example</caption>
 <img src="result/city.jpg" ><br>
+<caption>Stitching using parking lot example</caption>
+<img src="result/parkinglot.jpg" ><br>
+<caption>Stitching using building example</caption>
+<img src="result/building.jpg" ><br>
 </center>
 
 
