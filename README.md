@@ -39,7 +39,7 @@
 
 <li>if you want to resize input images :
 
-    `python main.py -i <input dir> -o <output dir -r 1> `
+    `python main.py -i <input dir> -o <output dir> -r 1 `
     
 <li>Otherwise
 	
