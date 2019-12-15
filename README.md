@@ -16,6 +16,7 @@
 ### Project Structure : 
 		
 		|_ main.py
+		|_Step_By_Step.ipynb
 		|_ utils.py
 		|_ features.py
 		|_ stitch.py
