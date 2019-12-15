@@ -37,23 +37,39 @@
 ### To run :
 #### IMPORTANT!!! Images must be supplied in left-to-right order.
 
-<li>if you want to resize images in input folder:
+<li>if you want to resize input images :
 
-    `python main.py -i <input dir> -o <output dir -r 1> `
+    `python main.py -i <input dir> -o <output dir> -r 1 `
     
 <li>Otherwise
 	
     `python main.py -i <input dir> -o <output dir> `
+ 
+ <li>Optional: Enter Smoothing value
+	
+    `python main.py -i <input dir> -o <output dir> -s< smoothing value> `
+ 
+    
     
     
 ## Outputs !! 
 
 <center>
+<caption>Stitching using Myhouse example</caption><br><br>
 <img src="result/myhouse.jpg" ><br>
 <br><br>
+<caption>Stitching using BK example</caption><br><br>
 <img src="result/BK.jpg" ><br>
 <br><br>
+<caption>Stitching using city example</caption><br><br>
 <img src="result/city.jpg" ><br>
+<br><br>
+<caption>Stitching using parking lot example</caption><br>
+<img src="result/parkinglot.jpg" ><br>
+<br><br>
+<caption>Stitching using building example</caption><br>
+<img src="result/Building.jpg" ><br>
+<br><br>
 </center>
 
 
