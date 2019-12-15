@@ -25,13 +25,19 @@ def blendingMask(height, width, barrier, smoothing_window, left_biased=True):
     
     return cv2.merge([mask, mask, mask])
     
-def panoramaBlending(dst_img,src_img,width_original_dst,side,smoothing_window = 400):
+def panoramaBlending(dst_img,src_img,width_original_dst,side,smoothing_window = 400,showstep=False):
     h,w,_=dst_img.shape
     barrier = width_original_dst -int(smoothing_window/2)
     mask1 = blendingMask(h, w, barrier, smoothing_window = smoothing_window, left_biased = True)
     mask2 = blendingMask(h, w, barrier, smoothing_window = smoothing_window, left_biased = False)
-    
-    #cv2.imwrite('non-blend.jpg',src_img+dst_img)
+
+    if showstep:
+        nonblend=src_img+dst_img
+    else:
+        nonblend=None
+        leftside=None
+        rightside=None
+
     if side=='left':
         dst_img=cv2.flip(dst_img,1)
         src_img=cv2.flip(src_img,1)
@@ -39,16 +45,21 @@ def panoramaBlending(dst_img,src_img,width_original_dst,side,smoothing_window = 
         src_img=(src_img*mask2)
         pano=src_img+dst_img
         pano=cv2.flip(pano,1)
+        if showstep:
+            leftside=cv2.flip(src_img,1)
+            rightside=cv2.flip(dst_img,1)
     else:
         dst_img=(dst_img*mask1)
         src_img=(src_img*mask2)
         pano=src_img+dst_img
+        if showstep:
+            leftside=dst_img
+            rightside=src_img
 
-    #cv2.imwrite('destination.jpg',dst_img)
-    #cv2.imwrite('source.jpg',src_img)
-    return pano
+    
+    return pano,nonblend,leftside,rightside
 
-def warpTwoImages(src_img, dst_img,smoothing_window = 400):
+def warpTwoImages(src_img, dst_img,smoothing_window = 400,showstep=False):
 
 	#generate Homography matrix
     H=features.generateHomography(src_img,dst_img)
@@ -95,11 +106,11 @@ def warpTwoImages(src_img, dst_img,smoothing_window = 400):
         dst_img_rz[t[1]:h1+t[1]-abs(h2-h1),:w2] = dst_img
 
     #blending panorama
-    pano2=panoramaBlending(dst_img_rz,src_img_wrapped,w2,side,smoothing_window=smoothing_window)
+    pano2,nonblend,leftside,rightside=panoramaBlending(dst_img_rz,src_img_wrapped,w2,side,smoothing_window=smoothing_window,showstep=showstep)
 
     #crop black region
     pano2=crop(pano2,h2,pts)
-    return pano2
+    return pano2,nonblend,leftside,rightside
 
 def multiStitching(list_images,smoothing_window):
     '''assume that the list_images was supplied in left-to-right order, choose middle image then 
@@ -114,22 +125,22 @@ def multiStitching(list_images,smoothing_window):
     while len(left)>1:
         dst_img=left.pop()
         src_img=left.pop()
-        left_pano=warpTwoImages(src_img,dst_img,smoothing_window)
+        left_pano,_,_,_=warpTwoImages(src_img,dst_img,smoothing_window)
         left_pano=left_pano.astype('uint8')
         left.append(left_pano)
 
     while len(right)>1:
         dst_img=right.pop()
         src_img=right.pop()
-        right_pano=warpTwoImages(src_img,dst_img,smoothing_window)
+        right_pano,_,_,_=warpTwoImages(src_img,dst_img,smoothing_window)
         right_pano=right_pano.astype('uint8')
         right.append(right_pano)
 
     #if width_right_pano > width_left_pano, Select right_pano as pivot. Otherwise is left_pano
     if(right_pano.shape[1]>=left_pano.shape[1]):
-        fullpano=warpTwoImages(left_pano,right_pano)
+        fullpano,_,_,_=warpTwoImages(left_pano,right_pano)
     else:
-        fullpano=warpTwoImages(right_pano,left_pano)
+        fullpano,_,_,_=warpTwoImages(right_pano,left_pano)
     return fullpano
 
 def crop(panorama,h_dst,conners):
