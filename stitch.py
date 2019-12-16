@@ -79,45 +79,48 @@ def warpTwoImages(src_img, dst_img,showstep=False):
 	#extract conners of two images: top-left, bottom-left, bottom-right, top-right
     pts1 = np.float32([[0,0],[0,height_src],[width_src,height_src],[width_src,0]]).reshape(-1,1,2)
     pts2 = np.float32([[0,0],[0,height_dst],[width_dst,height_dst],[width_dst,0]]).reshape(-1,1,2)
+    
+    try:
+        #aply homography to conners of src_img
+        pts1_ = cv2.perspectiveTransform(pts1, H)
+        pts = np.concatenate((pts1_, pts2), axis=0)
 
-	#aply homography to conners of src_img
-    pts1_ = cv2.perspectiveTransform(pts1, H)
-    pts = np.concatenate((pts1_, pts2), axis=0)
+        #find max min of x,y coordinate
+        [xmin, ymin] = np.int64(pts.min(axis=0).ravel() - 0.5)
+        [xmax, ymax] = np.int64(pts.max(axis=0).ravel() + 0.5)
+        t = [-xmin,-ymin]
 
-    #find max min of x,y coordinate
-    [xmin, ymin] = np.int64(pts.min(axis=0).ravel() - 0.5)
-    [xmax, ymax] = np.int64(pts.max(axis=0).ravel() + 0.5)
-    t = [-xmin,-ymin]
+    
+        #top left point of image which apply homography matrix, which has x coordinate < 0, has side=left
+        #otherwise side=right
+        #source image is merged to the left side or right side of destination image
+        if(pts[0][0][0]<0):
+            side='left'
+            width_pano=width_dst+t[0]
+        else:
+            width_pano=int(pts1_[3][0][0])
+            side='right'
+        height_pano=ymax-ymin
 
- 
-    #top left point of image which apply homography matrix, which has x coordinate < 0, has side=left
-    #otherwise side=right
-    #source image is merged to the left side or right side of destination image
-    if(pts[0][0][0]<0):
-        side='left'
-        width_pano=width_dst+t[0]
-    else:
-        width_pano=int(pts1_[3][0][0])
-        side='right'
-    height_pano=ymax-ymin
+        #Translation 
+        #https://stackoverflow.com/a/20355545
+        Ht = np.array([[1,0,t[0]],[0,1,t[1]],[0,0,1]]) 
+        src_img_warped = cv2.warpPerspective(src_img, Ht.dot(H), (width_pano,height_pano))
+        #generating size of dst_img_rz which has the same size as src_img_warped
+        dst_img_rz=np.zeros((height_pano,width_pano,3))
+        if side=='left':
+            dst_img_rz[t[1]:height_src+t[1],t[0]:width_dst+t[0]] = dst_img
+        else:
+            dst_img_rz[t[1]:height_src+t[1],:width_dst] = dst_img
 
-    #Translation 
-    #https://stackoverflow.com/a/20355545
-    Ht = np.array([[1,0,t[0]],[0,1,t[1]],[0,0,1]]) 
-    src_img_warped = cv2.warpPerspective(src_img, Ht.dot(H), (width_pano,height_pano))
-    #generating size of dst_img_rz which has the same size as src_img_warped
-    dst_img_rz=np.zeros((height_pano,width_pano,3))
-    if side=='left':
-        dst_img_rz[t[1]:height_src+t[1],t[0]:width_dst+t[0]] = dst_img
-    else:
-        dst_img_rz[t[1]:height_src+t[1],:width_dst] = dst_img
+        #blending panorama
+        pano,nonblend,leftside,rightside=panoramaBlending(dst_img_rz,src_img_warped,width_dst,side,showstep=showstep)
 
-    #blending panorama
-    pano,nonblend,leftside,rightside=panoramaBlending(dst_img_rz,src_img_warped,width_dst,side,showstep=showstep)
-
-    #croping black region
-    pano=crop(pano,height_dst,pts)
-    return pano,nonblend,leftside,rightside
+        #croping black region
+        pano=crop(pano,height_dst,pts)
+        return pano,nonblend,leftside,rightside
+    except:
+        raise Exception("Please try again with another image set!")
 
 def multiStitching(list_images):
     '''assume that the list_images was supplied in left-to-right order, choose middle image then 
