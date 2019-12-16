@@ -1,6 +1,7 @@
 # Panorama
-<li>This repository contains an implementation of multiple image stitching
-<li>Images must be supplied in left-to-right order.
+<li>This repository contains an implementation of multiple image stitching.
+<li>Slow processing with high resolution images.
+<li>Images must be supplied in left-to-right order or vice versa.
 
 ### Requirement
 <li>python3 (or higher)
@@ -36,8 +37,9 @@
 		|		   	|.....etc.....
 
 ### To run :
-#### IMPORTANT!!! Images must be supplied in left-to-right order.
+#### IMPORTANT!!! Images must be supplied in left-to-right order or vice versa .
 
+<li>Slow processing with high resolution images, so it must be resized before stitching
 <li>if you want to resize input images :
 
     `python main.py -i <input dir> -o <output dir> -r 1 `
@@ -46,12 +48,8 @@
 	
     `python main.py -i <input dir> -o <output dir> `
  
- <li>Optional: Enter Smoothing value
-	
-    `python main.py -i <input dir> -o <output dir> -s< smoothing value> `
  
-    
-    
+  
     
 ## Outputs !! 
 
