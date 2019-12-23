@@ -4,9 +4,10 @@
 <li>Images must be supplied in left-to-right order or vice versa.
 
 ### Requirement
-<li>python3 (or higher)
+<li>python3.7.1
+<li>opencv3.4.2
 
-### *Install opencv-contrib-python since some none-free features are not avilable*
+*Or using opencv-contrib-python since some none-free features are not avilable*
 
     pip install opencv-contrib-python==3.4.2.17 --force-reinstall
 
