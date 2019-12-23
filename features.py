@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def findAndDescribeFeatures(image,opt='SURF'):
+def findAndDescribeFeatures(image,opt='ORB'):
 	'''find and describe features of @image,
 	if opt='SURF', SURF algorithm is used.
 	if opt='SIFT', SIFT algorithm is used.
@@ -13,7 +13,7 @@ def findAndDescribeFeatures(image,opt='SURF'):
 	if opt=='SURF':
 		md = cv2.xfeatures2d.SURF_create()
 	if opt=='ORB':
-		md = cv2.ORB_create()
+		md = cv2.ORB_create(nfeatures=3000)
 	if opt=='SIFT':
 		md = cv2.xfeatures2d.SIFT_create()
 	#Find interest points and Computing features.

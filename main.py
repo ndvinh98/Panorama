@@ -19,15 +19,18 @@ args = vars(ap.parse_args())
 print('Processing....') 
 start = timeit.default_timer()
 
-
+#load images
 list_images=utils.loadImages(args['input'],args['resize'])
+
+#create panorama, default using ORB with nfeatures=3000, u can change to SIFT, SURF in features.py or add some argument
 panorama=stitch.multiStitching(list_images)
+
+#save
 cv2.imwrite(args['output']+'\\panorama.jpg',panorama)
 
 stop = timeit.default_timer()
 print('Complete!') 
 print('Execution time: ', stop - start) 
-
 
 
 
