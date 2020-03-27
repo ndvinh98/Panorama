@@ -2,7 +2,7 @@
 <li>This repository contains an implementation of multiple image stitching.
 <li>Slow processing with high resolution images.
 <li>Images must be supplied in left-to-right order or vice versa.
-Demo ->>> https://panorama4fun.herokuapp.com/
+<li>Demo ->>> https://panorama4fun.herokuapp.com/
 	
 
 ### Requirement
