@@ -3,6 +3,8 @@
 <li>Slow processing with high resolution images.
 <li>Images must be supplied in left-to-right order or vice versa.
 Demo ->>> https://panorama4fun.herokuapp.com/
+	
+
 ### Requirement
 <li>python3.7.1
 <li>opencv3.4.2
