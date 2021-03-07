@@ -8,7 +8,7 @@ def loadImages(path, resize):
     if image is halved in size, otherwise is False"""
     image_path = list(paths.list_images(path))
     list_image = []
-    for i, j in enumerate(image_path):
+    for _, j in enumerate(image_path):
         image = cv2.imread(j)
         if resize == 1:
             image = cv2.resize(
@@ -24,13 +24,13 @@ def trim(frame):
     if not np.sum(frame[0]):
         return trim(frame[1:])
     # crop bottom
-    elif not np.sum(frame[-1]):
+    if not np.sum(frame[-1]):
         return trim(frame[:-2])
     # crop left
-    elif not np.sum(frame[:, 0]):
+    if not np.sum(frame[:, 0]):
         return trim(frame[:, 1:])
     # crop right
-    elif not np.sum(frame[:, -1]):
+    if not np.sum(frame[:, -1]):
         return trim(frame[:, :-2])
     return frame
 

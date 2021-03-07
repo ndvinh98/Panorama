@@ -1,0 +1,17 @@
+[MASTER]
+disable=C0114,E0401,C0411,C0103,C0116,W0703,W0707
+
+[BASIC]
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=150
+
+[DESIGN]
+# Maximum number of arguments for function / method
+max-args=10
+
+# Maximum number of locals for function / method body
+max-locals=30

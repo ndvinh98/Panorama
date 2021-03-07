@@ -51,8 +51,7 @@ def matchFeatures(featuresA, featuresB, ratio=0.75, opt="FB"):
             good.append(m)
     if len(good) > 4:
         return good
-    else:
-        raise Exception("Not enought matches")
+    raise Exception("Not enought matches")
 
 
 def generateHomography(src_img, dst_img, ransacRep=5.0):

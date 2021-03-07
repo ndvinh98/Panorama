@@ -10,26 +10,26 @@ def blendingMask(height, width, barrier, smoothing_window, left_biased=True):
     offset = int(smoothing_window / 2)
     try:
         if left_biased:
-            mask[:, barrier - offset: barrier + offset + 1] = np.tile(
+            mask[:, barrier - offset : barrier + offset + 1] = np.tile(
                 np.linspace(1, 0, 2 * offset + 1).T, (height, 1)
             )
             mask[:, : barrier - offset] = 1
         else:
-            mask[:, barrier - offset: barrier + offset + 1] = np.tile(
+            mask[:, barrier - offset : barrier + offset + 1] = np.tile(
                 np.linspace(0, 1, 2 * offset + 1).T, (height, 1)
             )
-            mask[:, barrier + offset:] = 1
+            mask[:, barrier + offset :] = 1
     except BaseException:
         if left_biased:
-            mask[:, barrier - offset: barrier + offset + 1] = np.tile(
+            mask[:, barrier - offset : barrier + offset + 1] = np.tile(
                 np.linspace(1, 0, 2 * offset).T, (height, 1)
             )
             mask[:, : barrier - offset] = 1
         else:
-            mask[:, barrier - offset: barrier + offset + 1] = np.tile(
+            mask[:, barrier - offset : barrier + offset + 1] = np.tile(
                 np.linspace(0, 1, 2 * offset).T, (height, 1)
             )
-            mask[:, barrier + offset:] = 1
+            mask[:, barrier + offset :] = 1
 
     return cv2.merge([mask, mask, mask])
 
@@ -104,7 +104,7 @@ def warpTwoImages(src_img, dst_img, showstep=False):
 
         # find max min of x,y coordinate
         [xmin, ymin] = np.int64(pts.min(axis=0).ravel() - 0.5)
-        [xmax, ymax] = np.int64(pts.max(axis=0).ravel() + 0.5)
+        [_, ymax] = np.int64(pts.max(axis=0).ravel() + 0.5)
         t = [-xmin, -ymin]
 
         # top left point of image which apply homography matrix, which has x coordinate < 0, has side=left
@@ -127,9 +127,9 @@ def warpTwoImages(src_img, dst_img, showstep=False):
         # generating size of dst_img_rz which has the same size as src_img_warped
         dst_img_rz = np.zeros((height_pano, width_pano, 3))
         if side == "left":
-            dst_img_rz[t[1]: height_src + t[1], t[0]: width_dst + t[0]] = dst_img
+            dst_img_rz[t[1] : height_src + t[1], t[0] : width_dst + t[0]] = dst_img
         else:
-            dst_img_rz[t[1]: height_src + t[1], :width_dst] = dst_img
+            dst_img_rz[t[1] : height_src + t[1], :width_dst] = dst_img
 
         # blending panorama
         pano, nonblend, leftside, rightside = panoramaBlending(
@@ -151,7 +151,7 @@ def multiStitching(list_images):
     """
     n = int(len(list_images) / 2 + 0.5)
     left = list_images[:n]
-    right = list_images[n - 1:]
+    right = list_images[n - 1 :]
     right.reverse()
     while len(left) > 1:
         dst_img = left.pop()
@@ -183,7 +183,6 @@ def crop(panorama, h_dst, conners):
     4 conners of destination image"""
     # find max min of x,y coordinate
     [xmin, ymin] = np.int32(conners.min(axis=0).ravel() - 0.5)
-    [xmax, ymax] = np.int32(conners.max(axis=0).ravel() + 0.5)
     t = [-xmin, -ymin]
     conners = conners.astype(int)
 
@@ -192,10 +191,10 @@ def crop(panorama, h_dst, conners):
     # otherwise is merged to the right side of destination image
     if conners[0][0][0] < 0:
         n = abs(-conners[1][0][0] + conners[0][0][0])
-        panorama = panorama[t[1]: h_dst + t[1], n:, :]
+        panorama = panorama[t[1] : h_dst + t[1], n:, :]
     else:
         if conners[2][0][0] < conners[3][0][0]:
-            panorama = panorama[t[1]: h_dst + t[1], 0: conners[2][0][0], :]
+            panorama = panorama[t[1] : h_dst + t[1], 0 : conners[2][0][0], :]
         else:
-            panorama = panorama[t[1]: h_dst + t[1], 0: conners[3][0][0], :]
+            panorama = panorama[t[1] : h_dst + t[1], 0 : conners[3][0][0], :]
     return panorama
