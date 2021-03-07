@@ -1,7 +1,3 @@
-exclude: |
-  (?x)
-  # Maybe reactivate this when all README files include prettier ignore tags?
-  ^README\.md$|
 default_language_version:
   python: python3
 repos:
@@ -43,6 +39,10 @@ repos:
   #       name: prettier
   #       additional_dependencies:
   #         - "prettier@1.19.1"
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.5.4
+    hooks:
+      - id: autopep8
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.7.9
     hooks:

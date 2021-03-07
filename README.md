@@ -3,7 +3,7 @@
 <li>Slow processing with high resolution images.
 <li>Images must be supplied in left-to-right order or vice versa.
 <li>Demo ->>> https://panorama4fun.herokuapp.com/
-	
+
 
 ### Requirement
 <li>python3.7.1
@@ -17,14 +17,14 @@
 <li>numpy
 <li>matplotlib
 
-### Project Structure : 
-		
+### Project Structure :
+
 		|_ main.py
 		|_Step_By_Step.ipynb
 		|_ utils.py
 		|_ features.py
 		|_ stitch.py
-		|	
+		|
 		|_ data - |
 		|			|_ myhouse
 		|			|			|- 001.jpg
@@ -46,15 +46,15 @@
 <li>if you want to resize input images :
 
     `python main.py -i <input dir> -o <output dir> -r 1 `
-    
+
 <li>Otherwise
-	
+
     `python main.py -i <input dir> -o <output dir> `
- 
- 
-  
-    
-## Outputs !! 
+
+
+
+
+## Outputs !!
 
 <center>
 <caption>Stitching using Myhouse example</caption><br><br>
@@ -75,7 +75,7 @@
 </center>
 
 
-### References : 
+### References :
 [1] https://www.mathworks.com/help/vision/examples/feature-based-panoramic-image-stitching.html
 
 [2] https://www.pyimagesearch.com/2016/01/11/opencv-panorama-stitching/
