@@ -13,10 +13,11 @@
 <li>pip install -r requirements.txt
 
 ```
-python main.py [-h] -i INPUT -o OUTPUT [-r RESIZE]
+python main.py -i INPUT [-o OUTPUT] [-r RESIZE] [-h]
 
 options:
   -h, --help            show this help message and exit
+  
   -i INPUT, --input INPUT
                         path to input directory
   -o OUTPUT, --output OUTPUT
