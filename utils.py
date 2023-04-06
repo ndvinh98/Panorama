@@ -6,7 +6,7 @@ import numpy as np
 def loadImages(path, resize):
     """Load Images from path to array, @param path is the folder which containing images, @param resize is True
     if image is halved in size, otherwise is False"""
-    image_path = list(paths.list_images(path))
+    image_path = sorted(list(paths.list_images(path)))
     list_image = []
     for _, j in enumerate(image_path):
         image = cv2.imread(j)
