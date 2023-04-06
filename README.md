@@ -6,16 +6,25 @@
 
 
 ### Requirement
-<li>python3.7.1
-<li>opencv3.4.2
+<li>python > 3.7
+<li>opencv-contrib-python 4.7.0.72
 
-*Or using opencv-contrib-python since some none-free features are not avilable*
+### Usage
+<li>pip install -r requirements.txt
 
-    pip install opencv-contrib-python==3.4.2.17 --force-reinstall
+```
+python main.py [-h] -i INPUT -o OUTPUT [-r RESIZE]
 
-### You will need to install some package:
-<li>numpy
-<li>matplotlib
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        path to input directory
+  -o OUTPUT, --output OUTPUT
+                        path to output directory
+  -r RESIZE (0|1), --resize RESIZE
+                        enter 1 to resize lower resolution
+```
+	
 
 ### Project Structure :
 
